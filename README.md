@@ -7,8 +7,10 @@ There is nothing actually in this application just yet....
 ## Building
 To build & run:
 
-   npm install
-   npm start
+```bash
+npm install
+npm start
+```
 
 To build from Visual Studio Code, run the "install" task.
 
