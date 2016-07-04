@@ -1,0 +1,13 @@
+{
+    "name": "LunaIRC",
+    "version": "1.0.0",
+    "description": "A simple IRC client....",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "devDependencies": {
+        "electron-prebuilt": "^1.2.0",
+        "knockout": "^3.4.0"
+    }
+}
