@@ -1,0 +1,10 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "app/ts/**/*.js": true,
+        "app/ts/**/*.js.map": true,
+        "node_modules": true,
+        "typings": true,
+        "typings.json": true
+    }
+}

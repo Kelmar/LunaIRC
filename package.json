@@ -1,16 +1,26 @@
 {
-    "name": "LunaIRC",
+    "name": "luna.irc",
     "version": "0.1.0",
     "description": "An IRC client in nodejs/electron",
     "main": "main.js",
     "license": "BSD-3-Clause",
     "url": "https://github.com/Kelmar/LunaIRC",
     "email": "kfiresun@gmail.com",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Kelmar/LunaIRC"
+    },
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "install": "typings install --global --save dt~knockout",
+        "build": "tsc -p . && npm build",
+        "clean": "rm -rfv app/ts/*.js app/ts/*.map node_modules"
     },
     "devDependencies": {
         "electron-prebuilt": "^1.2.0",
-        "knockout": "^3.4.0"
+        "typescript": "^1.8.10",
+        "typings": "^1.3.1",
+        "knockout": "^3.4.0",
+        "bootstrap": "^3.3.6"
     }
 }

@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>LunaIRC</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <div>
-        <span>First Name: </span><span data-bind="text: firstName"></span><br />
-        <span>Last Name: </span><span data-bind="text: lastName"></span><br />
+    <div data-bind="with: command">
+        <span>Name: </span><span data-bind="text: input"></span><br />
+        <input type="text" data-bind="textInput: input, event: { keypress: handleKeypress }" /><br />
     </div>
+    <h2>Debug</h2>
+    <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
 </body>
 <script>
     require('./js/renderer.js')

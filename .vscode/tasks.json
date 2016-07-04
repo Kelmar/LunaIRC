@@ -22,6 +22,14 @@
         {
             "taskName": "debug",
             "args": ["start"]
+        },
+        {
+            "taskName": "build",
+            "args": ["run-script", "build"]
+        },
+        {
+            "taskName": "clean",
+            "args": ["run-script", "clean"]
         }
     ]
 }

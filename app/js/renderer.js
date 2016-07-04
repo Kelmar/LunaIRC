@@ -1,4 +1,7 @@
 const log = require('./logging.js');
+//const irc = require('./irc.js');
+const cmd = require('../ts/cmd.js');
+const target = require('./target.js');
 
 const ko = require('knockout');
 
@@ -38,17 +41,10 @@ const template = [
 
 const menu = Menu.buildFromTemplate(template);
 
-//window.addEventListener('contextmenu', (e) =>
-//{
-//    e.preventDefault();
-//    menu.popup(remote.getCurrentWindow());
-//}, false);
-
 Menu.setApplicationMenu(menu);
 
 var model = {
-    firstName: "John",
-    lastName: "Doe"
+    command: new cmd.CommandLine()
 };
 
 ko.applyBindings(model);
