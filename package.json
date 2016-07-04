@@ -1,8 +1,11 @@
 {
     "name": "LunaIRC",
-    "version": "1.0.0",
-    "description": "A simple IRC client....",
+    "version": "0.1.0",
+    "description": "An IRC client in nodejs/electron",
     "main": "main.js",
+    "license": "BSD-3-Clause",
+    "url": "https://github.com/Kelmar/LunaIRC",
+    "email": "kfiresun@gmail.com",
     "scripts": {
         "start": "electron ."
     },
