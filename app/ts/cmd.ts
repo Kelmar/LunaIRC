@@ -13,6 +13,8 @@ export class CommandLine {
         var text = this.input();
         this.input(''); // Clear the command line box.
 
+        // TODO: Send the command along here.
+
         console.debug('COMMAND: ' + text);
     }
 

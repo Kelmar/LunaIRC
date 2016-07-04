@@ -1,5 +1,5 @@
 const net = require('net');
-const log = require('./logging.js');
+const {Log} = require('../ts/logging.js');
 
 class Irc {
     constructor()

@@ -10,7 +10,7 @@ const electron = require('electron')
 // Module to control application life.
 const app = electron.app
 
-const log = require('./logging.js');
+const {Log} = require('../ts/logging.js');
 const fs = require('fs');
 
 /* ===================================================================== */
@@ -30,20 +30,20 @@ exports.save = function(config)
     {
         if (e.code != "EEXIST")
         {
-            log.error("Unable to verify existance of config directory: " + JSON.stringify(e));
+            Log.error("Unable to verify existance of config directory: " + JSON.stringify(e));
             return;
         }
     }
 
     let configJSON = JSON.stringify(config);
-    log.debug("Saving config data: " + configJSON);
+    Log.debug("Saving config data: " + configJSON);
 
     fs.writeFile(CONFIG_FILE_NAME, configJSON, (err) =>
     {
         if (err)
-            log.error("Unable to write to config file '" + CONFIG_FILE_NAME + ": " + err);
+            Log.error("Unable to write to config file '" + CONFIG_FILE_NAME + ": " + err);
         else
-            log.debug("Config file saved: " + CONFIG_FILE_NAME);
+            Log.debug("Config file saved: " + CONFIG_FILE_NAME);
     });
 };
 
@@ -51,7 +51,7 @@ exports.save = function(config)
 
 exports.load = function()
 {
-    log.debug("Loading config file: " + CONFIG_FILE_NAME);
+    Log.debug("Loading config file: " + CONFIG_FILE_NAME);
 
     try
     {
@@ -60,7 +60,7 @@ exports.load = function()
     }
     catch (e)
     {
-        log.error("Unable to read config file '" + CONFIG_FILE_NAME + ": " + JSON.stringify(e));
+        Log.error("Unable to read config file '" + CONFIG_FILE_NAME + ": " + JSON.stringify(e));
         return {};
     }
 };
