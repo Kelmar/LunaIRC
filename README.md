@@ -1,7 +1,6 @@
 # LunaIRC
 An IRC client in nodejs/electron
 
-
 There is nothing actually in this application just yet....
 
 ## Building
@@ -12,7 +11,7 @@ npm install
 npm start
 ```
 
-To build from Visual Studio Code, run the "install" task.
+To build from Visual Studio Code, run the `install` task.
 
-## TODO
+### TODO
 * The package.json script needs some TLC.
