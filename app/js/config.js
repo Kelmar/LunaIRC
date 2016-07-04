@@ -22,7 +22,11 @@ const CONFIG_FILE_NAME = CONFIG_DIRECTORY + "/prefernces.json";
 /* ===================================================================== */
 
 exports.values = {
-    debug: false
+    debug: false,
+    win: {
+        width: 800,
+        height: 600
+    }
 };
 
 /* ===================================================================== */

@@ -22,13 +22,13 @@ global.luna = {
 };
 
 // Global reference to the main window so it doesn't get GCed
-let mainWindow = null;
+global.mainWindow = null;
 
 /* ===================================================================== */
 
 function createMainWindow()
 {
-    var options = { width: 800, height: 600 };
+    var options = { width: luna.config.win.width, height: luna.config.win.height };
 
     mainWindow = new BrowserWindow(options);
 
@@ -36,6 +36,11 @@ function createMainWindow()
 
     mainWindow.on('closed', function()
     {
+        luna.config.win = {
+            'width': mainWindow.width,
+            'height': mainWindow.height
+        };
+
         mainWindow = null;
     });
 }
@@ -44,9 +49,9 @@ function createMainWindow()
 
 function readConfig()
 {
-    for (let i = 2; i < process.argv.length; ++i)
+    for (var i = 2; i < process.argv.length; ++i)
     {
-        let option = process.argv[i];
+        var option = process.argv[i];
 
         switch (option)
         {
