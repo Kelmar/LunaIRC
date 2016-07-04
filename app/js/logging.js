@@ -2,7 +2,7 @@ exports.write = function(level, msg)
 {
     level = String("     " + level).slice(-5);
 
-    console.log(level + ': ' + msg);
+    console.log(`${level}: ${msg}\n`);
 }
 
 exports.trace = function(msg)

@@ -6,6 +6,8 @@
  */
 /* ===================================================================== */
 
+const extend = require('util')._extend;
+
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
@@ -18,7 +20,13 @@ const config = require('./app/js/config.js');
 /* ===================================================================== */
 
 global.luna = {
-    config: config.values
+    config: {
+        debug: false,
+        win: {
+            width: 800,
+            height: 600
+        }
+    }
 };
 
 // Global reference to the main window so it doesn't get GCed
@@ -49,22 +57,7 @@ function createMainWindow()
 
 function readConfig()
 {
-    for (var i = 2; i < process.argv.length; ++i)
-    {
-        var option = process.argv[i];
-
-        switch (option)
-        {
-        case "--debug":
-            log.info("Got debug option.");
-            luna.config.debug = true;
-            break;
-
-        default:
-            log.warn("Unknown option: ", option)
-            break;
-        }
-    }
+    luna.config = extend(luna.config, config.load());
 }
 
 /* ===================================================================== */

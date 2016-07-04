@@ -12,7 +12,6 @@ const app = electron.app
 
 const log = require('./logging.js');
 const fs = require('fs');
-const extend = require('util')._extend;
 
 /* ===================================================================== */
 
@@ -21,17 +20,7 @@ const CONFIG_FILE_NAME = CONFIG_DIRECTORY + "/prefernces.json";
 
 /* ===================================================================== */
 
-exports.values = {
-    debug: false,
-    win: {
-        width: 800,
-        height: 600
-    }
-};
-
-/* ===================================================================== */
-
-exports.save = function()
+exports.save = function(config)
 {
     try
     {
@@ -46,40 +35,34 @@ exports.save = function()
         }
     }
 
-    let configData = JSON.stringify(exports.values);
-    log.debug("Saving config data: " + configData);
+    let configJSON = JSON.stringify(config);
+    log.debug("Saving config data: " + configJSON);
 
-    fs.writeFile(CONFIG_FILE_NAME, configData, (err) =>
+    fs.writeFile(CONFIG_FILE_NAME, configJSON, (err) =>
     {
         if (err)
             log.error("Unable to write to config file '" + CONFIG_FILE_NAME + ": " + err);
         else
             log.debug("Config file saved: " + CONFIG_FILE_NAME);
     });
-}
+};
 
 /* ===================================================================== */
 
-log.debug("Loading config file: " + CONFIG_FILE_NAME);
-
-fs.readFile(CONFIG_FILE_NAME, (err, data) =>
+exports.load = function()
 {
-    if (err)
-        log.error("Unable to read config file '" + CONFIG_FILE_NAME + ": " + err);
-    else if (data != "")
-    {
-        log.debug("Read config file data: " + data);
+    log.debug("Loading config file: " + CONFIG_FILE_NAME);
 
-        try
-        {
-            let configData = JSON.parse(data);
-            extend(exports.values, configData);
-        }
-        catch (e)
-        {
-            log.error("Unable to parse config file data: " + e);
-        }
-    } 
-});
+    try
+    {
+        var configJSON = fs.readFileSync(CONFIG_FILE_NAME);
+        return JSON.parse(configJSON);
+    }
+    catch (e)
+    {
+        log.error("Unable to read config file '" + CONFIG_FILE_NAME + ": " + JSON.stringify(e));
+        return {};
+    }
+};
 
 /* ===================================================================== */
