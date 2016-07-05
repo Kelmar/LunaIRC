@@ -1,6 +1,17 @@
+/* ===================================================================== */
+/*
+ * LunaIRC
+ * 
+ * Copyright (c) 2016 by Bryce Simonds
+ */
+/* ===================================================================== */
+
 import * as ko from 'knockout';
 
-export class CommandLine {
+/* ===================================================================== */
+
+export class CommandLine
+{
     input: KnockoutObservable<string>
 
     public constructor()
@@ -10,7 +21,7 @@ export class CommandLine {
 
     private processCommand()
     {
-        var text = this.input();
+        var text = this.input.peek();
         this.input(''); // Clear the command line box.
 
         // TODO: Send the command along here.
@@ -31,3 +42,5 @@ export class CommandLine {
         return true;
     }
 }
+
+/* ===================================================================== */

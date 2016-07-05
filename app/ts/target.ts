@@ -1,3 +1,11 @@
+/* ===================================================================== */
+/*
+ * LunaIRC
+ * 
+ * Copyright (c) 2016 by Bryce Simonds
+ */
+/* ===================================================================== */
+
 import * as ko from 'knockout';
 import {Log} from "./logging";
 
@@ -20,3 +28,5 @@ export class User extends Target
 export class Group extends Target
 {
 }
+
+/* ===================================================================== */

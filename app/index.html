@@ -9,12 +9,27 @@
 </head>
 
 <body>
-    <div data-bind="with: command">
-        <span>Name: </span><span data-bind="text: input"></span><br />
-        <input type="text" data-bind="textInput: input, event: { keypress: handleKeypress }" /><br />
+    <div id="main-container" class="container-fluid" data-bind="style: { height: height() + 'px' }">
+        <div class="row" style="height: 80%">
+            <ul id="target-list" class="col-xs-2" data-bind="foreach: targets">
+                <li data-bind="text: name"></li>
+            </ul>
+            <div id="chat-area" class="col-xs-10">
+
+                Chat Lines Here
+
+                <h2>Debug</h2>
+                <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div id="command-line" class="col-xs-10 col-xs-offset-2" data-bind="with: commandLine">
+                <input type="text" data-bind="textInput: input, event: { keypress: handleKeypress }" />
+            </div>
+        </div>
     </div>
-    <h2>Debug</h2>
-    <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
+
 </body>
 <script>
     require('./js/renderer.js')

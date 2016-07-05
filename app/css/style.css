@@ -1,0 +1,40 @@
+
+#target-list
+{
+    border: 1px solid black;
+    margin: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+#target-list li
+{
+    border: 1px solid green;
+    display: block;
+}
+
+#chat-area
+{
+    border: 1px solid blue;
+    margin: 0;
+    padding: 0;
+}
+
+#command-line
+{
+    border: 2px solid black;
+}
+
+#command-line input
+{
+    border: 0;
+    outline: none;
+    width: 100%;
+}
+
+/*
+#chat-area #command-line
+{
+}
+*/

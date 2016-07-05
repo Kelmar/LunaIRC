@@ -1,15 +1,23 @@
+/* ===================================================================== */
+/*
+ * LunaIRC
+ * 
+ * Copyright (c) 2016 by Bryce Simonds
+ */
+/* ===================================================================== */
+
 const {Log} = require('../ts/logging.js');
 
-//const irc = require('./irc.js');
-const cmd = require('../ts/cmd.js');
-//const target = require('./target.js');
-
-const ko = require('knockout');
+const {Application} = require('../ts/application.js');
 
 const {remote} = require('electron');
 const {Menu, MenuItem} = remote;
 
+/* ===================================================================== */
+
 var luna = remote.getGlobal('luna');
+
+/* ===================================================================== */
 
 const template = [
     {
@@ -44,8 +52,8 @@ const menu = Menu.buildFromTemplate(template);
 
 Menu.setApplicationMenu(menu);
 
-var model = {
-    command: new cmd.CommandLine()
-};
+/* ===================================================================== */
 
-ko.applyBindings(model);
+global.application = new Application();
+
+/* ===================================================================== */

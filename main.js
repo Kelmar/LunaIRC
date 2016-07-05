@@ -12,7 +12,6 @@ const {app, BrowserWindow} = require('electron');
 
 /* ===================================================================== */
 
-const log = require('./app/js/logging.js');
 const config = require('./app/js/config.js');
 
 /* ===================================================================== */
