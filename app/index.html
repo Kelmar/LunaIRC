@@ -24,8 +24,9 @@
             </div>
         </div>
         <div class="row">
-            <div id="command-line" class="col-xs-10 col-xs-offset-2" data-bind="with: commandLine">
-                <input type="text" data-bind="textInput: input, event: { keypress: handleKeypress }" />
+            <div id="command-line" class="input-group col-xs-10 col-xs-offset-2" data-bind="with: commandLine">
+                <input class="form-control" type="text" data-bind="textInput: input, event: { keypress: handleKeypress }" />
+                <span class="input-group-addon"><span class="glyphicon glyphicon-heart"></span></span>
             </div>
         </div>
     </div>

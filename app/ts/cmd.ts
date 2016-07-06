@@ -10,7 +10,7 @@ import * as ko from 'knockout';
 
 /* ===================================================================== */
 
-export class CommandLine
+export default class CommandLine
 {
     input: KnockoutObservable<string>
 

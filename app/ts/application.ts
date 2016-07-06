@@ -9,7 +9,7 @@
 import * as ko from "knockout";
 
 import {Log} from "./logging";
-import {CommandLine} from './cmd';
+import CommandLine from './cmd';
 import {Target,User,Group} from './target';
 
 /* ===================================================================== */
