@@ -13,11 +13,21 @@ export class Target
 {
     public name: KnockoutObservable<string>;
     public lines: KnockoutObservableArray<string>;
+    public count: KnockoutComputed<number>;
 
     constructor(name: string)
     {   
         this.name = ko.observable(name);
         this.lines = ko.observableArray([]);
+
+        this.count = ko.computed({
+            owner: this,
+            read: () =>
+            {
+                var lineArray = this.lines();
+                return lineArray.length;
+            }
+        });
     }
 }
 

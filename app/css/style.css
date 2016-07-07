@@ -1,22 +1,22 @@
-
 #target-list
 {
-    border: 1px solid black;
-    margin: 0;
+    height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0;
-}
-
-#target-list li
-{
-    border: 1px solid green;
-    display: block;
 }
 
 #chat-area
 {
-    border: 1px solid blue;
-    margin: 0;
+    height: 100%;
+    margin-right: 0;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#command-line
+{
+    margin-top: 15px;
+    margin-bottom: 15px;
     padding: 0;
 }

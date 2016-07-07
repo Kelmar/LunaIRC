@@ -42,6 +42,15 @@ const template = [
                         focusedWindow.webContents.toggleDevTools();
                 }
             },
+            {
+                label: "Reload",
+                accelerator: "CmdOrCtrl+R",
+                click (item, focusedWindow)
+                {
+                    if (focusedWindow)
+                        focusedWindow.reload();
+                }
+            },
             { type: 'separator' },
             { role: 'quit' }
         ]

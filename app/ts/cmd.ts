@@ -12,10 +12,13 @@ import * as ko from 'knockout';
 
 export default class CommandLine
 {
-    input: KnockoutObservable<string>
+    public input: KnockoutObservable<string>
+    private m_callback: (cmd: string) => any;
 
-    public constructor()
+    public constructor(callback: (cmd: string) => any)
     {
+        this.m_callback = callback;
+
         this.input = ko.observable("");
     }
 
@@ -24,9 +27,7 @@ export default class CommandLine
         var text = this.input.peek();
         this.input(''); // Clear the command line box.
 
-        // TODO: Send the command along here.
-
-        console.debug('COMMAND: ' + text);
+        this.m_callback(text);
     }
 
     public handleKeypress(data, event)

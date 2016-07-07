@@ -22,11 +22,13 @@ export class Application
     public width: KnockoutObservable<number>;
     public height: KnockoutObservable<number>;
 
+    private m_target: Target;
+
     constructor()
     {
         var self = this;
 
-        this.commandLine = new CommandLine();
+        this.commandLine = new CommandLine((cmd) => self.handleCommand(cmd));
         this.targets = ko.observableArray([]);
 
         this.width = ko.observable(window.innerWidth);
@@ -36,10 +38,16 @@ export class Application
 
         ko.applyBindings(this);
 
-        var t = new User("Bob");
-        this.targets.unshift(t);
+        this.m_target = new User("Bob");
+        this.targets.unshift(this.m_target);
 
         this.updateSizeBindings();
+    }
+
+    private handleCommand(cmd: string): void
+    {
+        this.m_target.lines.unshift(cmd);
+        Log.debug("COMMAND: " + cmd);
     }
 
     private updateSizeBindings(): void
