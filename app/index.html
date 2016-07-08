@@ -11,21 +11,25 @@
 <body>
     <div id="main-container" class="container-fluid" data-bind="style: { height: height() + 'px' }">
         <div class="row" style="height: 80%">
-            <ul id="target-list" class="nav nav-pills nav-stacked col-xs-2" data-bind="foreach: targets">
-                <li class="presentation selected">
-                    <span data-bind="text: name"></span>
-                    <span
-                        class="badge pull-right"
-                        data-bind="text: count, style: { display: (count() > 0) ? 'inline' : 'none' }"></span>
-                </li>
-            </ul>
-            <div id="chat-area" class="col-xs-10">
-
-                Chat Lines Here
-
-                <h2>Debug</h2>
+            <div class="col-xs-2">
+                <ul id="target-list" class="nav nav-pills nav-stacked" data-bind="foreach: targets">
+                    <li roll="presentation" data-bind="css: { active: $parent.isCurrentTarget($data) }">
+                        <a href="#">
+                            <span data-bind="text: name"></span>
+                            <span
+                                class="badge pull-right"
+                                data-bind="text: count, style: { display: (count() > 0) ? 'inline' : 'none' }"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="chat-area" class="col-xs-10" data-bind="with: currentTarget">
+                <div data-bind="foreach: lines">
+                <div>
+                    <span data-bind="text: $data"></span>
+                </div>
+                </div>
                 <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
-                
             </div>
         </div>
         <div class="row">

@@ -22,6 +22,8 @@ export class Application
     public width: KnockoutObservable<number>;
     public height: KnockoutObservable<number>;
 
+    public currentTarget: KnockoutComputed<Target>;
+
     private m_target: Target;
 
     constructor()
@@ -39,18 +41,29 @@ export class Application
 
         window.addEventListener('resize', (e) => { self.onResize(e); })
 
-        ko.applyBindings(this);
+        this.currentTarget = ko.computed({
+            owner: this,
+            read: () => { return this.m_target; }
+        });
 
         this.m_target = new User("Bob");
-        this.targets.unshift(this.m_target);
+        this.targets.push(this.m_target);
 
+        this.targets.push(new User("Joe"));
+
+        ko.applyBindings(this);
         this.updateSizeBindings();
+    }
+
+    public isCurrentTarget(target: Target): boolean
+    {
+        return (target == this.m_target);
     }
 
     private handleCommand(cmd: string): void
     {
-        this.m_target.lines.unshift(cmd);
-        Log.debug("COMMAND: " + cmd);
+        this.m_target.addLine(cmd);
+        //Log.debug("COMMAND: " + cmd);
     }
 
     private updateSizeBindings(): void
