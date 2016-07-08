@@ -6,19 +6,19 @@
  */
 /* ===================================================================== */
 
+import {EventEmitter} from "events";
+
 import * as ko from 'knockout';
 
 /* ===================================================================== */
 
-export default class CommandLine
+export default class CommandLine extends EventEmitter
 {
     public input: KnockoutObservable<string>
-    private m_callback: (cmd: string) => any;
 
-    public constructor(callback: (cmd: string) => any)
+    public constructor()
     {
-        this.m_callback = callback;
-
+        super();
         this.input = ko.observable("");
     }
 
@@ -27,7 +27,13 @@ export default class CommandLine
         var text = this.input.peek();
         this.input(''); // Clear the command line box.
 
-        this.m_callback(text);
+        this.emit(
+            "command",
+            {
+                source: this,
+                command: text
+            }
+        );
     }
 
     public handleKeypress(data, event)

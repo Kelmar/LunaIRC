@@ -12,7 +12,7 @@
     },
     "scripts": {
         "start": "electron .",
-        "install": "typings install --global --save dt~knockout",
+        "install": "typings install --global --save dt~node dt~knockout dt~jquery dt~lodash",
         "build": "tsc -p . && npm build",
         "clean": "rm -rfv app/ts/*.js app/ts/*.map node_modules"
     },
@@ -21,7 +21,8 @@
         "typescript": "^1.8.10",
         "typings": "^1.3.1",
         "knockout": "^3.4.0",
-        "jquery": "3.0.0",
-        "bootstrap": "^3.3.6"
+        "jquery": "^3.0.0",
+        "bootstrap": "^3.3.6",
+        "lodash": "^4.13.1"
     }
 }

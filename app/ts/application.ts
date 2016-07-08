@@ -28,7 +28,10 @@ export class Application
     {
         var self = this;
 
-        this.commandLine = new CommandLine((cmd) => self.handleCommand(cmd));
+        this.commandLine = new CommandLine();
+
+        this.commandLine.on("command", (e) => self.handleCommand(e.command));
+
         this.targets = ko.observableArray([]);
 
         this.width = ko.observable(window.innerWidth);

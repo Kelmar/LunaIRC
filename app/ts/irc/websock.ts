@@ -1,7 +1,7 @@
 import ITransport from "./itransport";
 
 /**
- * Hnaldes IRC messages that are sent over a web socket frame.
+ * Handles IRC messages that are sent over a web socket frame.
  */
 export class WebSockTransport implements ITransport
 {
