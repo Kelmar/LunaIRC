@@ -22,9 +22,7 @@ export class Application
     public width: KnockoutObservable<number>;
     public height: KnockoutObservable<number>;
 
-    public currentTarget: KnockoutComputed<Target>;
-
-    private m_target: Target;
+    public currentTarget: KnockoutObservable<Target>;
 
     constructor()
     {
@@ -41,13 +39,10 @@ export class Application
 
         window.addEventListener('resize', (e) => { self.onResize(e); })
 
-        this.currentTarget = ko.computed({
-            owner: this,
-            read: () => { return this.m_target; }
-        });
+        var t = new User("Bob");
+        this.targets.push(t);
 
-        this.m_target = new User("Bob");
-        this.targets.push(this.m_target);
+        this.currentTarget = ko.observable(t);
 
         this.targets.push(new User("Joe"));
 
@@ -57,12 +52,14 @@ export class Application
 
     public isCurrentTarget(target: Target): boolean
     {
-        return (target == this.m_target);
+        var t = this.currentTarget.peek();
+        return (target == t);
     }
 
     private handleCommand(cmd: string): void
     {
-        this.m_target.addLine(cmd);
+        var t = this.currentTarget.peek();
+        t.addLine(cmd);
         //Log.debug("COMMAND: " + cmd);
     }
 

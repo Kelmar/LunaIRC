@@ -24,16 +24,21 @@ export default class CommandLine extends EventEmitter
 
     private processCommand()
     {
-        var text = this.input.peek();
+        var text: string = this.input.peek().trim();
         this.input(''); // Clear the command line box.
 
-        this.emit(
-            "command",
-            {
-                source: this,
-                command: text
-            }
-        );
+        if (text != "")
+        {
+            // Only fire an event if we actually have something to process!
+
+            this.emit(
+                "command",
+                {
+                    source: this,
+                    command: text
+                }
+            );
+        }
     }
 
     public handleKeypress(data, event)

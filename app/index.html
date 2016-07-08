@@ -23,13 +23,11 @@
                     </li>
                 </ul>
             </div>
-            <div id="chat-area" class="col-xs-10" data-bind="with: currentTarget">
-                <div data-bind="foreach: lines">
+            <div id="chat-area" class="col-xs-10" data-bind="foreach: currentTarget().lines">
                 <div>
-                    <span data-bind="text: $data"></span>
+                    [<span data-bind="text: when().toLocaleTimeString()"></span>]
+                    <span data-bind="text: message"></span>
                 </div>
-                </div>
-                <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
             </div>
         </div>
         <div class="row">

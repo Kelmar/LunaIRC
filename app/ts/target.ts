@@ -41,7 +41,7 @@ export class TargetLine
 export class Target
 {
     public name: KnockoutObservable<string>;
-    public lines: KnockoutObservableArray<string>;
+    public lines: KnockoutObservableArray<TargetLine>;
     public count: KnockoutComputed<number>;
 
     constructor(name: string)
@@ -61,8 +61,8 @@ export class Target
 
     public addLine(message: string)
     {
-        //var tl = new TargetLine(message);
-        this.lines.push(message);
+        var tl = new TargetLine(message);
+        this.lines.push(tl);
     }
 }
 
