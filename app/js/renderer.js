@@ -8,7 +8,7 @@
 
 const {Log} = require('../ts/logging.js');
 
-const {Application} = require('../ts/application.js');
+const {MainWindow} = require('../ts/mainWindow.js');
 
 const {remote} = require('electron');
 const {Menu, MenuItem} = remote;
@@ -63,6 +63,6 @@ Menu.setApplicationMenu(menu);
 
 /* ===================================================================== */
 
-global.application = new Application();
+global.mainWindow = new MainWindow();
 
 /* ===================================================================== */

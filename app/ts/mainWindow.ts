@@ -14,7 +14,7 @@ import {Target,User,Group} from './target';
 
 /* ===================================================================== */
 
-export class Application
+export class MainWindow
 {
     public commandLine: CommandLine;
     public targets: KnockoutObservableArray<Target>;

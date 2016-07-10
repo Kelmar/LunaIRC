@@ -1,4 +1,4 @@
-import ITransport from "./itransport";
+import ITransport from "./iTransport";
 
 /**
  * Handles IRC messages that are wrapped inside of a AJAX POST.

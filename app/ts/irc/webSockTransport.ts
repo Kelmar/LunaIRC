@@ -1,4 +1,4 @@
-import ITransport from "./itransport";
+import ITransport from "./iTransport";
 
 /**
  * Handles IRC messages that are sent over a web socket frame.
