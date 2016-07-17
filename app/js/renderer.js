@@ -8,7 +8,7 @@
 
 const {Log} = require('../ts/logging.js');
 
-const {MainWindow} = require('../ts/mainWindow.js');
+const {MainWindow} = require('../ts/ui/mainWindow.js');
 
 const {remote} = require('electron');
 const {Menu, MenuItem} = remote;

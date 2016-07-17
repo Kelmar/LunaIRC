@@ -6,13 +6,13 @@
  */
 /* ===================================================================== */
 
-import {EventEmitter} from "events";
-
 import * as ko from 'knockout';
+
+import {EventSender} from '../base/event';
 
 /* ===================================================================== */
 
-export default class CommandLine extends EventEmitter
+export default class CommandLine extends EventSender
 {
     public input: KnockoutObservable<string>
 

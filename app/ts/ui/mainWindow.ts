@@ -8,9 +8,11 @@
 
 import * as ko from "knockout";
 
-import {Log} from "./logging";
+import {Log} from "../logging";
 import CommandLine from './cmd';
-import {Target,User,Group} from './target';
+import {Target,User,Group} from '../target';
+
+import TcpTransport from "../irc/transport/tcpTransport";
 
 /* ===================================================================== */
 
@@ -60,7 +62,6 @@ export class MainWindow
     {
         var t = this.currentTarget.peek();
         t.addLine(cmd);
-        //Log.debug("COMMAND: " + cmd);
     }
 
     private updateSizeBindings(): void
