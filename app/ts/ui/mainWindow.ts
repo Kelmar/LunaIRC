@@ -12,7 +12,7 @@ import {Log} from "../logging";
 import CommandLine from './cmd';
 import {Target,User,Group} from '../target';
 
-import TcpTransport from "../irc/transport/tcpTransport";
+import IRCConnection from "../irc/ircConnection";
 
 /* ===================================================================== */
 
@@ -25,6 +25,8 @@ export class MainWindow
     public height: KnockoutObservable<number>;
 
     public currentTarget: KnockoutObservable<Target>;
+
+    private m_conn: IRCConnection;
 
     constructor()
     {
@@ -62,6 +64,9 @@ export class MainWindow
     {
         var t = this.currentTarget.peek();
         t.addLine(cmd);
+
+        if (cmd == "/test")
+            this.m_conn = new IRCConnection("irc.esper.net", 5555);
     }
 
     private updateSizeBindings(): void

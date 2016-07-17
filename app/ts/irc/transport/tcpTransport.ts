@@ -29,13 +29,9 @@ export default class TcpTransport extends TransportBase
      */
     private m_bufferLength: number;
 
-    public constructor()
+    public constructor(host: string, port: number)
     {
-        super();
-
-        var self = this;
-
-        this.m_fd = new Socket();
+        super(host, port);
 
         /*
          * IRC messages are supposed to only be 512 bytes; we
@@ -44,17 +40,7 @@ export default class TcpTransport extends TransportBase
         this.m_buffer = new Buffer(512);
         this.m_bufferLength = 0;
 
-        /*
-         * We manage the encoding ourselves.
-         * 
-         * Some servers/clients might be using ISO-646 or ISO-8859-1
-         */
-        this.m_fd.setEncoding(null);
-
-        this.m_fd.on('data', data => self.onData(data));
-        this.m_fd.on('connect', () => self.onConnected());
-        this.m_fd.on('close', hadError => self.onClosed(hadError));
-        this.m_fd.on('error', error => self.onError(error));
+        this.createFd();
     }
 
     public dispose(): void
@@ -69,6 +55,28 @@ export default class TcpTransport extends TransportBase
         }
 
         super.dispose();
+    }
+
+    private createFd(): void
+    {
+        if (this.m_fd != null)
+            return;
+
+        var self = this;
+
+        this.m_fd = new Socket();
+
+        /*
+         * We manage the encoding ourselves.
+         * 
+         * Some servers/clients might be using ISO-646 or ISO-8859-1
+         */
+        this.m_fd.setEncoding(null);
+
+        this.m_fd.on('data', data => self.onData(data));
+        this.m_fd.on('connect', d => self.onConnected());
+        this.m_fd.on('close', hadError => self.onClosed(hadError));
+        this.m_fd.on('error', error => self.onError(error));
     }
 
     private onConnected()
@@ -122,6 +130,12 @@ export default class TcpTransport extends TransportBase
                 this.emit("message", message);
             }
         }
+    }
+
+    public connect()
+    {
+        this.createFd();
+        this.m_fd.connect(this.port, this.host);
     }
 
     public sendMessage(message): void

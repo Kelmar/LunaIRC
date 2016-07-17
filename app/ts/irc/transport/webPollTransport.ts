@@ -15,6 +15,10 @@ import TransportBase from "./transportBase";
  */
 export class WebPollTransport extends TransportBase
 {
+    public connect()
+    {
+    }
+
     public sendMessage(message): void
     {
     }

@@ -21,6 +21,22 @@ import {EventSender} from "../../base/event";
  */
 abstract class TransportBase extends EventSender
 {
+    private m_host: string;
+    private m_port: number;
+
+    public get host(): string { return this.m_host; }
+    public get port(): number { return this.m_port; }
+
+    constructor(host: string, port: number)
+    {
+        super();
+
+        this.m_host = host;
+        this.m_port = port;
+    }
+
+    public abstract connect();
+
     public abstract sendMessage(message): void;
 }
 
