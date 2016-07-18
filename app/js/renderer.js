@@ -10,7 +10,7 @@ const {Log} = require('../ts/logging.js');
 
 const {MainWindow} = require('../ts/ui/mainWindow.js');
 
-const {remote} = require('electron');
+const {remote, shell} = require('electron');
 const {Menu, MenuItem} = remote;
 
 /* ===================================================================== */
@@ -18,6 +18,8 @@ const {Menu, MenuItem} = remote;
 var luna = remote.getGlobal('luna');
 
 /* ===================================================================== */
+
+// TODO: Remove some of this hard coded junk
 
 const template = [
     {
@@ -27,12 +29,27 @@ const template = [
             { label: 'MenuItem2', type: 'checkbox', checked: true },
             { type: 'separator' },
             {
-                label: 'Preferences...',
+                label: 'Settings...',
                 click()
                 {
-                    Log.debug('Preferences selected');
+                    global.jQuery('#settings-dialog').modal();
                 }
             },
+            { type: 'separator' },
+            { role: 'quit' }
+        ]
+    },
+    {
+        label: "Help",
+        submenu: [
+            {
+                label: 'Documentation',
+                click()
+                {
+                    shell.openExternal("https://github.com/Kelmar/LunaIRC");
+                }
+            },
+            { type: 'separator' },
             {
                 label: 'Developer Tools', 
                 accelerator: process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
@@ -52,7 +69,8 @@ const template = [
                 }
             },
             { type: 'separator' },
-            { role: 'quit' }
+            { label: 'About' },
+
         ]
     }
 ]

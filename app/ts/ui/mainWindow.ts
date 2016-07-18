@@ -12,6 +12,8 @@ import {Log} from "../logging";
 import CommandLine from './cmd';
 import {Target,User,Group} from '../target';
 
+import Modal from "./modal";
+
 import IRCConnection from "../irc/ircConnection";
 
 /* ===================================================================== */
@@ -19,11 +21,11 @@ import IRCConnection from "../irc/ircConnection";
 export class MainWindow
 {
     public commandLine: CommandLine;
-    public targets: KnockoutObservableArray<Target>;
 
     public width: KnockoutObservable<number>;
     public height: KnockoutObservable<number>;
 
+    public targets: KnockoutObservableArray<Target>;
     public currentTarget: KnockoutObservable<Target>;
 
     private m_conn: IRCConnection;
@@ -69,6 +71,19 @@ export class MainWindow
     public selectTarget = (target: Target): boolean =>
     {
         this.currentTarget(target);
+        return false;
+    }
+
+    public openSettingsDialog = (): boolean =>
+    {
+        var modal = new Modal("#settings-dialog");
+        modal.show();
+
+        return false;
+    }
+
+    public openConnectDialog = (): boolean =>
+    {
         return false;
     }
 
