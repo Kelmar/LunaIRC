@@ -12,7 +12,7 @@
     },
     "scripts": {
         "start": "electron .",
-        "install": "typings install --global --save dt~node dt~knockout dt~jquery dt~bootstrap dt~lodash",
+        "install": "typings install --global --save dt~node env~electron dt~knockout dt~jquery dt~bootstrap dt~lodash",
         "build": "tsc -p . && npm build",
         "clean": "rm -rfv app/ts/*.js app/ts/*.map node_modules"
     },
