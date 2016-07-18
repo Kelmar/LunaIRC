@@ -41,7 +41,7 @@ export class MainWindow
         this.width = ko.observable(window.innerWidth);
         this.height = ko.observable(window.innerHeight);
 
-        window.addEventListener('resize', (e) => { self.onResize(e); })
+        window.addEventListener('resize', this.onResize);
 
         var t = new User("Bob");
         this.targets.push(t);
@@ -54,10 +54,22 @@ export class MainWindow
         this.updateSizeBindings();
     }
 
-    public isCurrentTarget(target: Target): boolean
+    public isCurrentTarget = (target: Target, peek: boolean = false): boolean =>
     {
-        var t = this.currentTarget.peek();
+        var t: Target;
+        
+        if (peek)
+            t = this.currentTarget.peek();
+        else
+            t = this.currentTarget();
+
         return (target == t);
+    }
+
+    public selectTarget = (target: Target): boolean =>
+    {
+        this.currentTarget(target);
+        return false;
     }
 
     private handleCommand(cmd: string): void
@@ -75,7 +87,7 @@ export class MainWindow
         this.height(window.innerHeight);
     }
 
-    private onResize(event: Event): boolean
+    private onResize = (event: Event): boolean =>
     {
         this.updateSizeBindings();
 

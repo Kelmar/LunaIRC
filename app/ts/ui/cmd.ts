@@ -41,7 +41,7 @@ export default class CommandLine extends EventSender
         }
     }
 
-    public handleKeypress(data, event)
+    public handleKeypress = (data, event): boolean =>
     {
         switch (event.keyCode)
         {
