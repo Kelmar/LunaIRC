@@ -9,8 +9,10 @@
 import * as ko from "knockout";
 
 import {Log} from "../logging";
-import CommandLine from './cmd';
-import {Target,User,Group} from '../target';
+import CommandLine from "./cmd";
+
+import {Source,SourceType} from "../model/chat/source";
+import {Target,User,Group} from "../model/chat/target";
 
 import Modal from "./modal";
 
@@ -89,8 +91,10 @@ export class MainWindow
 
     private handleCommand(cmd: string): void
     {
+        var s = new Source()
+
         var t = this.currentTarget.peek();
-        t.addLine(cmd);
+        t.addLine(s, cmd);
 
         if (cmd == "/test")
             this.m_conn = new IRCConnection("irc.esper.net", 5555);

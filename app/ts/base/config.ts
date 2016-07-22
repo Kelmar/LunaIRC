@@ -15,25 +15,18 @@ import {Log} from "../logging";
 
 /* ===================================================================== */
 
-export default class Configuration
+export class ConfigFile
 {
-    constructor ()
+    public static load(): Object
     {
-        this.load();
+        var data = ConfigFile.loadJson();
+
+        return JSON.parse(data);
     }
 
-    private load(): void
+    private static loadJson(): string
     {
-        var data = this.loadJson();
-
-        var js = JSON.parse(data);
-
-        //ko.mapping.fromJS(js, {}, this);
-    }
-
-    private loadJson(): string
-    {
-        var fileName = this.getConfigFileName();
+        var fileName = ConfigFile.name;
 
         Log.debug(`Loading settings file: ${fileName}`);
 
@@ -48,16 +41,16 @@ export default class Configuration
         }
     }
 
-    private save()
+    public static save(data: Object)
     {
-        var data = ko.toJSON(this);
-        this.saveJson(data);
+        var json = ko.toJSON(data);
+        ConfigFile.saveJson(json);
     }
 
-    private saveJson(data: string)
+    private static saveJson(data: string)
     {
-        var dirName = this.getConfigDirectory();
-        var fileName = this.getConfigFileName();
+        var dirName = ConfigFile.directory;
+        var fileName = ConfigFile.name;
 
         try
         {
@@ -83,14 +76,37 @@ export default class Configuration
         });
     }
 
-    public getConfigDirectory(): string
+    public static get directory(): string
     {
         return app.getPath("appData") + "/luna";
     }
 
-    public getConfigFileName(): string
+    public static get name(): string
     {
-        return this.getConfigDirectory() + "/settings.json";
+        return ConfigFile.directory + "/settings.json";
+    }
+}
+
+/* ===================================================================== */
+
+export class Settings
+{
+    public username: KnockoutObservable<string>;
+    public nickname: KnockoutObservable<string>;
+    public realname: KnockoutObservable<string>;
+
+    constructor()
+    {
+        this.username = ko.observable("");
+        this.nickname = ko.observable("");
+        this.realname = ko.observable("");
+    }
+
+    public loadFrom(js: any)
+    {
+        this.username(js.username);
+        this.nickname(js.nickname);
+        this.realname(js.realname);
     }
 }
 
