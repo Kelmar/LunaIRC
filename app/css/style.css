@@ -20,3 +20,8 @@
     margin-bottom: 15px;
     padding: 0;
 }
+
+.modal-body .nav
+{
+    margin-bottom: 1rem;
+}
