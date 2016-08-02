@@ -27,6 +27,9 @@
                 <div>
                     [<span data-bind="text: when().toLocaleTimeString()"></span>]
                     <span data-bind="text: message"></span>
+                <!-- ko foreach: items -->
+                    <div data-bind="template: { name: ('messageItem' + $data.typeName()), data: $data }"></div>
+                <!-- /ko -->
                 </div>
             </div>
         </div>
@@ -113,6 +116,16 @@
         </div>
     </div>
 </body>
+
+<script type="text/html" id="messageItemImage">
+    <img data-bind="attr: { src: href }" />
+</script>
+
+<script type="text/html" id="messageItemVideo">
+    <img data-bind="attr: { src: thumbnail }" />
+    <a class="video-title" data-bind="text: title, href: href"></a>
+</script>
+
 <script>
     global.jQuery = require("jquery");
     global._ = require("lodash");
