@@ -7,6 +7,7 @@
 /* ===================================================================== */
 
 import * as url from "url";
+import * as path from "path";
 
 import * as async from "async";
 import * as ko from "knockout";
@@ -117,6 +118,27 @@ export class TargetLine
     }
 
     /**
+     * Filter down to acceptable file types and locations.
+     */
+    private filterUrl(uri: url.Url): boolean
+    {
+        if ((uri.host == "www.youtube.com") && (uri.pathname == "/watch"))
+        {
+            // Youtube video
+            return true;
+        }
+        else
+        {
+            // Allow images
+            const allowedExt: string[] = [ ".jpg", ".gif", ".png" ];
+
+            var ext = path.extname(uri.pathname);
+
+            return _.contains(allowedExt, ext);
+        }
+    }
+
+    /**
      * Finds confirmed URLs in the message string.
      * 
      * This function takes possible matches from parsePossibleUrls()
@@ -129,15 +151,17 @@ export class TargetLine
 
         for (var possibility in possibleUrls)
         {
-           try
-           {
-               var url = url.parse(possibility, true);
-               this.m_urls.push(possibility);
-           }
-           catch (ex)
-           {
-               // Ignore, parse errors.
-           }
+            try
+            {
+                var uri = url.parse(possibility, true);
+
+                if (this.filterUrl(uri))
+                    this.m_urls.push(possibility);
+            }
+            catch (ex)
+            {
+                // Ignore, parse errors.
+            }
         }
 
         this.urls.notifySubscribers();
