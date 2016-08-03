@@ -6,9 +6,9 @@
  */
 /* ===================================================================== */
 
-import TransportBase from './transport/TransportBase';
+import TransportBase from './transport/transportBase';
 
-import TcpTransport from './transport/TcpTransport';
+import TcpTransport from './transport/tcpTransport';
 
 import Message from "./ircMessage";
 
