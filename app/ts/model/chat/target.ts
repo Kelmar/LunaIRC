@@ -67,7 +67,7 @@ export abstract class TargetItem
     {
         var width: number = this.width();
 
-        return (width > 640) ? 640 : width;
+        return (width > 320) ? 320 : width;
     }
 
     protected getPreviewHeight = (): number =>
@@ -78,7 +78,7 @@ export abstract class TargetItem
         {
             var height: number = this.height();
 
-            return (height > 480) ? 480 : height;
+            return (height > 240) ? 240 : height;
         }
 
         return this.previewWidth() / ratio;

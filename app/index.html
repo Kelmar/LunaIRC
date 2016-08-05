@@ -72,10 +72,16 @@
 </script>
 
 <script type="text/html" id="messageItemVideo">
-    <iframe
-        type="text/html" 
-        frameborder=0
-        data-bind="attr: { width: previewWidth, height: previewHeight, src: embedHref }"></iframe>
+    <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading" data-bind="text: title"></h4>
+            <iframe
+                type="text/html" 
+                frameborder="0"
+                allowfullscreen="allowfullscreen"
+                data-bind="attr: { width: previewWidth, height: previewHeight, src: embedHref }"></iframe>
+        </div>
+    </div>
 </script>
 
 <script>
