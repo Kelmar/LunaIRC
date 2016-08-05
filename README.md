@@ -14,7 +14,7 @@ npm start
 
 ### TODO
 * The package.json script needs some TLC.
-* Settings need to be fleshed out a wired up.
+* Settings need to be fleshed out and wired up.
 * A /test command has been implemented
 
 The test command connects to [EsperNet](http://www.esper.net/) with some hard coded defaults.
