@@ -78,7 +78,15 @@ export class MainWindow
 
     public openSettingsDialog = (): boolean =>
     {
-        var modal = new Modal("#settings-dialog");
+        var modal = new Modal("#dialog", "app/resources/settings.html");
+        modal.show();
+
+        return false;
+    }
+
+    public testDialogError = (): boolean =>
+    {
+        var modal = new Modal("#dialog", "bogus/resource/file.html");
         modal.show();
 
         return false;

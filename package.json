@@ -23,6 +23,7 @@
         "knockout": "^3.4.0",
         "jquery": "^3.0.0",
         "bootstrap": "^3.3.6",
+        "font-awesome": "^4.6.3",
         "lodash": "^4.13.1",
         "async": "^2.0.1"
     }

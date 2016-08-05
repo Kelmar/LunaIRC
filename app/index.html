@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>LunaIRC</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
+    <link rel='stylesheet' href='../node_modules/font-awesome/css/font-awesome.min.css' />
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -36,6 +37,10 @@
         <div class="row">
             <div id="server-nav" class="col-xs-2 btn-group btn-group-sm" role="group">
                 <button
+                    data-bind="click: testDialogError"
+                    class="glyphicon glyphicon-exclamation-sign btn btn-default" 
+                    label="Test Broken Dialog..."></button>
+                <button
                     data-bind="click: openSettingsDialog"
                     class="glyphicon glyphicon-cog btn btn-default" 
                     label="Settings..."></button>
@@ -53,65 +58,10 @@
         </div>
     </div>
 
-    <div id="settings-dialog" class="modal fade" role="dialog">
+    <div id="dialog" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><span class="glyphicon glyphicon-cog"></span> Settings</h4>
-                </div>
-                <div class="modal-body">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item active">
-                            <a class="nav-link active" data-toggle="tab" href="#identity" role="tab">Identity</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#servers" role="tab">Servers</a>
-                        </li>
-                    </ul>
-                    <form role="form">
-                        <div class="tab-content">
-                        
-                            <div class="tab-pane active" id="identity" role="tabpanel">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label" for="nickname">Nick</label>
-                                    <div class="col-sm-4">
-                                        <input
-                                            id="nickname"
-                                            class="form-control" 
-                                            type="text" 
-                                            placeholder="Nick name" />
-                                    </div>
-                                    <label class="col-sm-2 col-form-label" for="username">User</label>
-                                    <div class="col-sm-4">
-                                        <input
-                                            id="username"
-                                            class="form-control"
-                                            type="email" 
-                                            placeholder="User name" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="realname">Full Name</label>
-                                    <div>
-                                        <input
-                                            id="realname"
-                                            class="form-control"
-                                            type="text"
-                                            placeholder="Full name" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane" id="servers" role="tabpanel">
-                                <p>Server tab goes here.</p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+                
             </div>
         </div>
     </div>
