@@ -118,12 +118,14 @@
 </body>
 
 <script type="text/html" id="messageItemImage">
-    <img data-bind="attr: { src: href }" />
+    <img data-bind="attr: { src: href, width: previewWidth, height: previewHeight }" />
 </script>
 
 <script type="text/html" id="messageItemVideo">
-    <img data-bind="attr: { src: thumbnail }" />
-    <a class="video-title" data-bind="text: title, href: href"></a>
+    <iframe
+        type="text/html" 
+        frameborder=0
+        data-bind="attr: { width: previewWidth, height: previewHeight, src: embedHref }"></iframe>
 </script>
 
 <script>

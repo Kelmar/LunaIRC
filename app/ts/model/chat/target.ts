@@ -9,6 +9,7 @@
 import * as url from "url";
 import * as path from "path";
 import * as https from "https";
+import {nativeImage} from 'electron';
 
 import * as async from "async";
 import * as ko from "knockout";
@@ -22,10 +23,65 @@ import {Log} from "../../logging";
 export abstract class TargetItem
 {
     public typeName: KnockoutComputed<string>;
+    public width: KnockoutObservable<number>;
+    public height: KnockoutObservable<number>;
+
+    public ratio: KnockoutComputed<number>;
+
+    public previewWidth: KnockoutComputed<number>;
+    public previewHeight: KnockoutComputed<number>;
+
+    private m_typeName;
 
     public constructor(typeName: string)
     {
-        this.typeName = ko.computed(() => { return typeName; });
+        this.m_typeName = typeName;
+
+        this.typeName = ko.computed(this.getTypeName);
+        this.width = ko.observable(0);
+        this.height = ko.observable(0);
+
+        this.ratio = ko.computed(this.getRatio);
+
+        this.previewWidth = ko.computed(this.getPreviewWidth);
+        this.previewHeight = ko.computed(this.getPreviewHeight);
+    }
+
+    private getTypeName = (): string =>
+    {
+        return this.m_typeName;
+    }
+
+    protected getRatio = (): number =>
+    {
+        var width: number = this.width();
+        var height: number = this.height();
+
+        if (height > 0)
+            return width / height;
+
+        return 0;
+    }
+
+    protected getPreviewWidth = (): number =>
+    {
+        var width: number = this.width();
+
+        return (width > 640) ? 640 : width;
+    }
+
+    protected getPreviewHeight = (): number =>
+    {
+        var ratio: number = this.getRatio();
+
+        if (ratio <= 0)
+        {
+            var height: number = this.height();
+
+            return (height > 480) ? 480 : height;
+        }
+
+        return this.previewWidth() / ratio;
     }
 }
 
@@ -39,6 +95,21 @@ export class TargetImageItem extends TargetItem
     {
         super("Image")
         this.href = ko.computed(() => { return href; });
+
+        var self = this;
+
+        var img = document.createElement('img');
+        img.onload = () =>
+        {
+            self.width(img.width);
+            self.height(img.height);
+
+            // Let GC clean up this stuff when we're done.
+            self = null;
+            img = null;
+        }
+
+        img.src = href;
     }
 }
 
@@ -51,6 +122,7 @@ export class TargetVideoItem extends TargetItem
     public title: KnockoutObservable<string>;
     public comment: KnockoutObservable<string>;
     public href: KnockoutComputed<string>;
+    public embedHref: KnockoutComputed<string>;
     
     private m_id: string;
     private m_thumbnail: string;
@@ -62,6 +134,7 @@ export class TargetVideoItem extends TargetItem
         this.id = ko.computed(() => { return id; });
         this.thumbnail = ko.computed(this.getThumbnail);
         this.href = ko.computed(this.getHref);
+        this.embedHref = ko.computed(this.getEmbedHref);
         this.title = ko.observable("");
 
         https.get(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`, this.parseJson);
@@ -82,6 +155,8 @@ export class TargetVideoItem extends TargetItem
             {
                 var data = JSON.parse(buffer);
                 this.title(data.title);
+                this.width(data.width);
+                this.height(data.height);
             });
         }
     }
@@ -96,6 +171,12 @@ export class TargetVideoItem extends TargetItem
     {
         var id: string = this.id();
         return `https://www.youtube.com/watch?v=${id}`;
+    }
+
+    private getEmbedHref = (): string =>
+    {
+        var id: string = this.id();
+        return `https://www.youtube.com/embed/${id}?html5=1&0rel=0&version=3`;
     }
 }
 
