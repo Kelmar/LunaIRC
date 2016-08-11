@@ -9,7 +9,7 @@
 /**
  * Simple template engine.
  * 
- * Uses the ECMA Script 5 template litteral to perform templating.
+ * Uses the ECMA Script 6 template litteral to perform templating.
  * 
  * This is not only super simple, but also rediculously fast! :)
  */
