@@ -6,90 +6,51 @@
  */
 /* ===================================================================== */
 
-import * as url from 'url';
-import * as fs from 'fs';
+import * as hb from "handlebars";
+import * as fs from "fs";
 
-import * as jQuery from "jquery";
+import {Log} from "../logging";
+import {ThemeManager, ThemeInfo} from "./themeManager";
 
 /* ===================================================================== */
 /**
  * Simple template engine.
  * 
- * Uses the ECMA Script 6 template litteral to perform templating.
+ * This is a wrapper around handlebars.
  * 
- * This is not only super simple, but also rediculously fast! :)
+ * When the theme is changed, we will (re)load that theme's template file.
  */
 export default class Template
 {
-    private m_precompiled: () => string;
-    private m_format: string;
+    private m_name: string;
+    private m_tm: ThemeManager;
 
-    constructor()
+    private m_templateFn: (model: any) => string;
+
+    constructor(name: string, tm: ThemeManager)
     {
-        this.m_format = "";
-        this.compile();
+        this.m_name = name;
+        this.m_tm = tm;
+
+        this.m_tm.addListener("themeUpdating", this.loadTemplate);
+
+        this.loadTemplate(this.m_tm.getTheme());
     }
 
-    private compile(): void
+    private loadTemplate = (currentTheme: ThemeInfo): void =>
     {
-        this.m_precompiled = eval('(function () { return `' + this.m_format + '`; })');
-    }
+        var fileName = this.m_name.replace(/\.hb$/, "");
+        var templatePath = `${currentTheme.path}/${fileName}.hb`;
 
-    public get format(): string { return this.m_format; }
-    public set format(value: string)
-    {
-        this.m_format = value;
-        this.compile();
+        Log.info(`Loading ${this.m_name} for theme ${currentTheme.name} from ${templatePath}`);
+
+        var data: string = fs.readFileSync(templatePath, { encoding: 'utf8' });
+        this.m_templateFn = hb.compile(data);
     }
 
     public render(model: any): string
     {
-        return this.m_precompiled.call(model);
-    }
-
-    /**
-     * Generates a Template object, with a preset format.
-     */
-    public static fromString(format: string): Template
-    {
-        var rval = new Template();
-
-        rval.format = format;
-
-        return rval;
-    }
-
-    /**
-     * Generates a Template object using a DOM element for formatting.
-     */
-    public static fromDom(selector: string): Template
-    {
-        var $element = $(selector);
-
-        if ($element.length < 0)
-            throw `Element not found ${selector}`;
-
-        return Template.fromString($element.html());
-    }
-
-    /**
-     * Generates a Template object with the contents of a file for the format.
-     */
-    public static fromFile(path: string): Template
-    {
-        var html: string;
-        
-        try
-        {
-            html = fs.readFileSync(path, "utf-8");
-        }
-        catch (e)
-        {
-            var errMsg = `Unable to read template file '${path}': ${e}'`;
-            throw errMsg;
-        }
-
-        return Template.fromString(html);
+        return this.m_templateFn(model);
     }
 }
 

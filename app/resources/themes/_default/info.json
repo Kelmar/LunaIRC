@@ -1,0 +1,7 @@
+{
+    "name": "default",
+    "displayName": "Default",
+    "description": "The default theme for LunaIRC",
+    "version": "0.1.0",
+    "targetVersions": [ "0.1.0" ]
+}

@@ -7,4 +7,6 @@
         "typings": true,
         "typings.json": true
     }
+,
+"typescript.check.workspaceVersion": false
 }

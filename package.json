@@ -12,9 +12,10 @@
     },
     "scripts": {
         "start": "electron .",
-        "install": "typings install --global --save dt~node env~electron dt~knockout dt~jquery dt~bootstrap dt~lodash dt~async",
+        "install": "typings install --global --save dt~node env~electron dt~knockout dt~jquery dt~bootstrap dt~lodash dt~async dt~handlebars",
         "build": "tsc -p . && npm build",
-        "clean": "rm -rfv app/ts/*.js app/ts/*.map node_modules"
+        "clean": "rm -rfv app/ts/*.js app/ts/*.map node_modules",
+        "env": "env"
     },
     "devDependencies": {
         "electron-prebuilt": "^1.2.0",
@@ -25,6 +26,7 @@
         "bootstrap": "^3.3.6",
         "font-awesome": "^4.6.3",
         "lodash": "^4.13.1",
-        "async": "^2.0.1"
+        "async": "^2.0.1",
+        "handlebars": "^4.0.5"
     }
 }
