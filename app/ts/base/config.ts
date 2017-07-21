@@ -81,7 +81,7 @@ export class ConfigFile
         return app.getPath("appData") + "/luna";
     }
 
-    public static get name(): string
+    public static get fileName(): string
     {
         return ConfigFile.directory + "/settings.json";
     }

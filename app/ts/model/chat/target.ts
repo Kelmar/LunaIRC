@@ -137,7 +137,9 @@ export class TargetVideoItem extends TargetItem
         this.embedHref = ko.computed(this.getEmbedHref);
         this.title = ko.observable("");
 
-        https.get(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`, this.parseJson);
+        var requestUrl: string = `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`;
+        
+        https.get(requestUrl, this.parseJson);
     }
 
     private parseJson = (res): void =>
