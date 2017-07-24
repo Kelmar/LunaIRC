@@ -54,7 +54,7 @@ export class ConfigFile
 
         try
         {
-            fs.mkdir(dirName)
+            fs.mkdirSync(dirName)
         }
         catch (e)
         {
